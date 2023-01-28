@@ -49,15 +49,71 @@ root = tk.Tk()
 root.geometry("800x600")
 
 
-#  Loading GAFETE 'Empleado Picture' File & Resizing/Cropping it -------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------
+# FIRTS NAME INPUT FIELD-------------------------------------------------
 
-# Loading Picture File
-# picture = Image.open(
-#     select_picture)
+first_name_field = tk.Entry(root)
+first_name_field.grid(row=0, column=2, padx=10, pady=10)
+
+# Storing Input entry-------------------------------------------
+
+name_font = changing_font(38)
 
 
+def store_firstname_text(event):
+    empleado_firstname = ''
+    # get the text from the input field
+    first_name_text = first_name_field.get()
+    first_name_input = first_name_text
+    print(first_name_input)
+    empleado_firstname = first_name_input
+    # Draw 'First Name' text in image
+    w, h = textbox(empleado_firstname, 38)
+    draw_name.text(((W-w)/2, ((H-h)/2)+48), empleado_firstname.title(),
+                   font=name_font, fill='white')
+
+
+# Store field user input with a button
+add_firstname_button = tk.Button(
+    root, text="Agregar",)
+
+add_firstname_button.grid(row=0, column=3)
+add_firstname_button.config(
+    foreground='Black',  disabledforeground='Black', background='light gray', state='disable')
+# Bind the field user input storing to keys and click
+add_firstname_button.bind("<Button-1>",  store_firstname_text)
+first_name_field.bind("<Button-1>", store_firstname_text)
+first_name_field.bind("<Return>", store_firstname_text)
+first_name_field.bind("<Tab>", store_firstname_text)
+
+# ----------------------------------------------------------------------------------------------------------------
+# LAST NAME INPUT FIELD-----------------------------------------------
+last_name_field = tk.Entry(root)
+last_name_field.grid(row=1, column=2, padx=10, pady=10)
+# Storing Input entry-------------------------------------------
+
+
+def store_lastname_text(event):
+    # get the text from the input field
+    last_name_text = last_name_field.get()
+    last_name_input = last_name_text
+    print(last_name_input)
+
+
+# Store field user input with a button
+add_lastname_button = tk.Button(root, text="Agregar",
+                                )
+add_lastname_button.grid(row=1, column=3)
+# Bind the field user input storing to keys and click
+add_lastname_button.bind("<Button-1>",  store_lastname_text)
+last_name_field.bind("<Button-1>", store_lastname_text)
+last_name_field.bind("<Return>", store_lastname_text)
+last_name_field.bind("<Tab>", store_lastname_text)
+
+
+# ----------------------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
-# SELECTING PICTURE FROM COMPUTER BUTTON-------------------------------------------------
+#  Loading GAFETE 'Empleado Picture' File & Resizing/Cropping it -----------------------
 
 
 def select_picture():
@@ -75,37 +131,15 @@ def select_picture():
     cords = ((W-w)/2, (H-h)/2-206)
     cords = tuple(round(x) for x in cords)
     gafete_front.paste(picture_output, cords, picture_output)
+    print(filename)
+    gafete_front.save('Frente.png')
 
 
-gafete_front.save('Frente.png')
+# SELECTING PICTURE FROM COMPUTER BUTTON-------------------------------------------------
 select_picture_button = tk.Button(
     root, text="Select Picture", command=select_picture)
-select_picture_button.grid(row=0, column=2, padx=10, pady=10)
-
-# FIRTS NAME INPUT FIELD-------------------------------------------------
-
-first_name_field = tk.Entry(root)
-first_name_field.grid(row=1, column=2, padx=10, pady=10)
-
-# Storing Input entry-------------------------------------------
-
-
-def store_text(event):
-    # get the text from the input field
-    name_text = first_name_field.get()
-    name_input = name_text
-    print(name_input)
-
-
-first_name_field.bind("<Return>", store_text)
-first_name_field.bind("<Tab>", store_text)
-
-# LAST NAME INPUT FIELD-----------------------------------------------
-last_name_field = tk.Entry(root)
-last_name_field.grid(row=2, column=2, padx=10, pady=10)
-
-
-# -------------------------------------------------------------
+select_picture_button.grid(row=2, column=2, padx=10, pady=10)
+# --------------------------------------------------------------------------------------
 
 
 root.mainloop()
